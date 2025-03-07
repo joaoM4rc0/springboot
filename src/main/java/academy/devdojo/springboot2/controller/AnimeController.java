@@ -15,11 +15,8 @@ import java.util.List;
 @RequestMapping("anime")
 @Log4j2
 public class AnimeController {
+    @Autowired
     private DateUtil dateUtil;
-
-    public AnimeController(DateUtil dateUtil) {
-        this.dateUtil = dateUtil;
-    }
     //localhost:8080/anime/list
     @GetMapping(path = "list")
     public List<Anime> list() {
