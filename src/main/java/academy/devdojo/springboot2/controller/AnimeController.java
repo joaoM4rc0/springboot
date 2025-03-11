@@ -35,6 +35,11 @@ public class AnimeController {
 
     @PostMapping
     public ResponseEntity<Anime> save(@RequestBody Anime anime) {
-        return new ResponseEntity<>(AnimeService.save(anime),HttpStatus.CREATED);
+        return new ResponseEntity<>(animeService.save(anime),HttpStatus.CREATED);
+    }
+    @DeleteMapping
+    public ResponseEntity<Void> delete(@PathVariable long id) {
+        animeService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

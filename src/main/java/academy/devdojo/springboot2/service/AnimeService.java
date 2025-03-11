@@ -20,6 +20,7 @@ public class AnimeService {
                 new Anime(2L, "boku no hero", 200),
                 new Anime(3L, "jujutsu kaisen", 80)));
     }
+
     public List<Anime> retornaAnimes() {
         return animes;
     }
@@ -29,9 +30,13 @@ public class AnimeService {
                 .findFirst()
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "id nao encontrado"));
     }
-    public static Anime save(Anime anime) {
+    public Anime save(Anime anime) {
         anime.setId(ThreadLocalRandom.current().nextLong(4, 100000));
         animes.add(anime);
         return anime;
+    }
+
+    public void delete(long id) {
+        animes.remove(findById(id));
     }
 }
