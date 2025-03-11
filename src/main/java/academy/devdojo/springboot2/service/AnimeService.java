@@ -29,7 +29,7 @@ public class AnimeService {
                 .findFirst()
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "id nao encontrado"));
     }
-    public Anime save(Anime anime) {
+    public static Anime save(Anime anime) {
         anime.setId(ThreadLocalRandom.current().nextLong(4, 100000));
         animes.add(anime);
         return anime;
