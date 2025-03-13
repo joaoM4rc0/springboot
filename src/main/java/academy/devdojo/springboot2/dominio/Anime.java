@@ -1,10 +1,19 @@
 package academy.devdojo.springboot2.dominio;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.*;
 
 import java.util.Objects;
+@Setter
+@Getter
+@NoArgsConstructor
+@Entity
 public class Anime {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
     private int ep;
@@ -14,7 +23,6 @@ public class Anime {
         this.name = name;
         this.ep = ep;
     }
-
     @Override
     public String toString() {
         return "Anime{" +
@@ -23,34 +31,9 @@ public class Anime {
                 ", ep=" + ep +
                 '}';
     }
-
-
     @Override
     public int hashCode() {
         return Objects.hash(id, name, ep);
     }
 
-    public int getEp() {
-        return ep;
-    }
-
-    public void setEp(int ep) {
-        this.ep = ep;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

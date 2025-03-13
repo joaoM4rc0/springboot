@@ -1,0 +1,20 @@
+services:
+  db:
+    image: mysql:9.1.0
+    container_name: spring_boot
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: spring_boot
+    volumes:
+      - spring_boot:/var/lib/mysql
+      - /usr/share/zoneinfo:/usr/share/zoneinfo:ro
+    ports:
+      - "3309:3306"  # Corrected port mapping
+    networks:
+      - banco_default
+
+volumes:
+  spring_boot:
+
+networks:
+  banco_default:
