@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class AnimePostRequestBody {
     private String name;
-    private int eps;
+    private int ep;
 }

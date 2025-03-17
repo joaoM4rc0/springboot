@@ -12,7 +12,11 @@ import java.util.List;
 
 @Service
 public class AnimeService {
-    private AnimeRepository animeRepository;
+    private final AnimeRepository animeRepository;
+
+    public AnimeService(AnimeRepository animeRepository) {
+        this.animeRepository = animeRepository;
+    }
 
     public List<Anime> retornaAnimes() {
         return animeRepository.findAll();
@@ -22,7 +26,7 @@ public class AnimeService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "id nao encontrado"));
     }
     public Anime save(AnimePostRequestBody animePostRequestBody) {
-        Anime anime = Anime.builder().name(animePostRequestBody.getName()).ep(animePostRequestBody.getEps()).build();
+        Anime anime = Anime.builder().name(animePostRequestBody.getName()).ep(animePostRequestBody.getEp()).build();
         return animeRepository.save(anime);
     }
     public void delete(long id) {
@@ -32,7 +36,7 @@ public class AnimeService {
         findByIdOrThrowBadRequest(animePutRequestBody.getId());
         Anime anime = Anime.builder()
                 .name(animePutRequestBody.getName())
-                .ep(animePutRequestBody.getEps())
+                .ep(animePutRequestBody.getEp())
                 .id(animePutRequestBody.getId())
                 .build();
         animeRepository.save(anime);
