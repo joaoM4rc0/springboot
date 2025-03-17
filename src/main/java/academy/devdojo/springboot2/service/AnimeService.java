@@ -1,6 +1,7 @@
 package academy.devdojo.springboot2.service;
 
 import academy.devdojo.springboot2.dominio.Anime;
+import academy.devdojo.springboot2.mapper.AnimeMapper;
 import academy.devdojo.springboot2.repository.AnimeRepository;
 import academy.devdojo.springboot2.requests.AnimePostRequestBody;
 import academy.devdojo.springboot2.requests.AnimePutRequestBody;
@@ -26,19 +27,15 @@ public class AnimeService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "id nao encontrado"));
     }
     public Anime save(AnimePostRequestBody animePostRequestBody) {
-        Anime anime = Anime.builder().name(animePostRequestBody.getName()).ep(animePostRequestBody.getEp()).build();
-        return animeRepository.save(anime);
+        return animeRepository.save(AnimeMapper.INSTANCE.toAnime(animePostRequestBody));
     }
     public void delete(long id) {
         animeRepository.delete(findByIdOrThrowBadRequest(id));
     }
     public void replace(AnimePutRequestBody animePutRequestBody) {
         findByIdOrThrowBadRequest(animePutRequestBody.getId());
-        Anime anime = Anime.builder()
-                .name(animePutRequestBody.getName())
-                .ep(animePutRequestBody.getEp())
-                .id(animePutRequestBody.getId())
-                .build();
+        Anime anime = AnimeMapper.INSTANCE.toAnime(animePutRequestBody);
+        anime.setId(animePutRequestBody.getId());
         animeRepository.save(anime);
     }
 }
